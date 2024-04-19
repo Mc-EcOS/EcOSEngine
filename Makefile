@@ -10,15 +10,18 @@ all: $(EXEC)
 
 # Linking
 $(EXEC): $(OBJ)
-    $(CXX) $(OBJ) -o $(EXEC)
+	$(CXX) $(OBJ) -o $(EXEC)
+
 
 # Compilation
 .cpp.o:
-    $(CXX) $(CXXFLAGS) -c $< -o $@
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+
 
 # Clean
 clean:
-    rm -f $(OBJ) $(EXEC)
+	rm -f $(OBJ) $(EXEC)
+
 
 # Phony targets
 .PHONY: all clean
