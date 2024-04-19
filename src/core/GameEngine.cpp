@@ -1,20 +1,47 @@
 #include "GameEngine.h"
 #include <iostream>
+#include <SDL.h>
 
 GameEngine::GameEngine() : isRunning(false) {}
 
 void GameEngine::start() {
+    // Initialisation du SDL...
+
     isRunning = true;
     while (isRunning) {
         processInput();
         update();
         render();
     }
+
+    // Nettoyage du SDL...
 }
 
 void GameEngine::processInput() {
-    // TODO: Handle user input
-    std::cout << "Processing input...\n";
+    SDL_Event event;
+    while (SDL_PollEvent(&event)) {
+        if (event.type == SDL_QUIT) {
+            stop();
+        } else if (event.type == SDL_KEYDOWN) {
+            switch (event.key.keysym.sym) {
+                case SDLK_UP:
+                    std::cout << "Up arrow key pressed\n";
+                    break;
+                case SDLK_DOWN:
+                    std::cout << "Down arrow key pressed\n";
+                    break;
+                case SDLK_LEFT:
+                    std::cout << "Left arrow key pressed\n";
+                    break;
+                case SDLK_RIGHT:
+                    std::cout << "Right arrow key pressed\n";
+                    break;
+                default:
+                    std::cout << "Other key pressed: " << SDL_GetKeyName(event.key.keysym.sym) << "\n";
+                    break;
+            }
+        }
+    }
 }
 
 void GameEngine::update() {
