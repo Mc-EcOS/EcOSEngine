@@ -1,2 +1,33 @@
+# Fichiers objets et binaires
 *.o
-game
+*.a
+*.so
+*.dll
+*.dylib
+*.exe
+
+# Fichiers de projet spécifiques à l'IDE
+*.sln
+*.suo
+*.user
+*.userprefs
+*.proj
+*.csproj
+*.vbproj
+*.vcxproj
+*.vcxproj.filters
+*.xcodeproj
+*.xcworkspace
+*.xcuserstate
+
+# Dossiers de build
+Debug/
+Release/
+build/
+
+# Autres fichiers et dossiers générés automatiquement
+*.log
+*.cache
+*.DS_Store
+.vs/
+.vscode/
