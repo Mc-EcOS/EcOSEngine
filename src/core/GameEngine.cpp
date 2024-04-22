@@ -1,20 +1,35 @@
 #include "GameEngine.h"
 #include <iostream>
-#include <SDL.h>
+#include <SDL2/SDL.h>
 
-GameEngine::GameEngine() : isRunning(false) {}
+GameEngine::GameEngine() : isRunning(false) {
+    // Initialisation de SDL2
+    if (SDL_Init(SDL_INIT_VIDEO) < 0) {
+        std::cerr << "SDL could not initialize! SDL_Error: " << SDL_GetError() << std::endl;
+        return;
+    }
+
+    // Création de la fenêtre
+    window = SDL_CreateWindow("SDL2 Window", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 640, 480, SDL_WINDOW_SHOWN);
+    if (window == NULL) {
+        std::cerr << "Window could not be created! SDL_Error: " << SDL_GetError() << std::endl;
+        return;
+    }
+}
+
+GameEngine::~GameEngine() {
+    // Nettoyage et fermeture de SDL2
+    SDL_DestroyWindow(window);
+    SDL_Quit();
+}
 
 void GameEngine::start() {
-    // Initialisation du SDL...
-
     isRunning = true;
     while (isRunning) {
         processInput();
-        update();
-        render();
+        //update();
+        //render();
     }
-
-    // Nettoyage du SDL...
 }
 
 void GameEngine::processInput() {
@@ -22,6 +37,7 @@ void GameEngine::processInput() {
     while (SDL_PollEvent(&event)) {
         if (event.type == SDL_QUIT) {
             stop();
+            std::cout << "Nothing\n";
         } else if (event.type == SDL_KEYDOWN) {
             switch (event.key.keysym.sym) {
                 case SDLK_UP:
