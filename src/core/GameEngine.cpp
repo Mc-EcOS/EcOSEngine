@@ -1,6 +1,5 @@
 #include "GameEngine.h"
 #include <iostream>
-#include <SDL2/SDL.h>
 
 GameEngine::GameEngine() : isRunning(false) {
     // Initialisation de SDL2
@@ -15,6 +14,8 @@ GameEngine::GameEngine() : isRunning(false) {
         std::cerr << "Window could not be created! SDL_Error: " << SDL_GetError() << std::endl;
         return;
     }
+    SDL_WarpMouseInWindow(NULL, 640/2, 480/2);
+
 }
 
 GameEngine::~GameEngine() {
@@ -26,39 +27,13 @@ GameEngine::~GameEngine() {
 void GameEngine::start() {
     isRunning = true;
     while (isRunning) {
-        processInput();
+        inputEngine.processInput(isRunning);
         //update();
         //render();
     }
 }
 
-void GameEngine::processInput() {
-    SDL_Event event;
-    while (SDL_PollEvent(&event)) {
-        if (event.type == SDL_QUIT) {
-            stop();
-            std::cout << "Nothing\n";
-        } else if (event.type == SDL_KEYDOWN) {
-            switch (event.key.keysym.sym) {
-                case SDLK_UP:
-                    std::cout << "Up arrow key pressed\n";
-                    break;
-                case SDLK_DOWN:
-                    std::cout << "Down arrow key pressed\n";
-                    break;
-                case SDLK_LEFT:
-                    std::cout << "Left arrow key pressed\n";
-                    break;
-                case SDLK_RIGHT:
-                    std::cout << "Right arrow key pressed\n";
-                    break;
-                default:
-                    std::cout << "Other key pressed: " << SDL_GetKeyName(event.key.keysym.sym) << "\n";
-                    break;
-            }
-        }
-    }
-}
+
 
 void GameEngine::update() {
     // TODO: Update game objects
