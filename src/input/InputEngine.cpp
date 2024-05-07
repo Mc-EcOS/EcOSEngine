@@ -52,6 +52,25 @@ void InputEngine::processInput(bool& isRunning) {
                 std::cout << "Mouse position: (" << mouseX << ", " << mouseY << ")\n";
 
                 break;
+            
+            case SDL_MOUSEBUTTONDOWN:
+                            switch (event.button.button) {
+                    case SDL_BUTTON_LEFT:
+                        // Gestion de la touche "flèche vers le haut"
+                        std::cout << "Left click pressed\n";
+                        break;
+                    case SDL_BUTTON_RIGHT:
+                        // Gestion de la touche "flèche vers le bas"
+                        std::cout << "Right click pressed\n";
+                        break;
+                    // Ajoutez ici la gestion d'autres touches
+                    default:
+                        std::cout << "Other key pressed: " << SDL_GetKeyName(event.button.button) << "\n";
+                        break;
+                    
+                }
+                break;
+
         }
     }
 }
